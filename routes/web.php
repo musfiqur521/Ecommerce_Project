@@ -8,17 +8,14 @@
 
     route::get('/',[HomeController::class,'index']); 
 
-    Route::middleware([
-        'auth:sanctum',
-        config('jetstream.auth_session'),
-        'verified'
-    ])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
-    });
+    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',function ()
+    {
+        return view('dashboard');
+        
+    })->name('dashboard');
 
-    route::get('/redirect',[HomeController::class,'redirect']);
+    route::get('/redirect',[HomeController::class,'redirect'])->middleware('auth','verified');
+    
     route::get('/view_catagory',[AdminController::class,'view_catagory']); 
     route::POST('/add_catagory',[AdminController::class,'add_catagory']);
     route::get('/delete_catagory/{id}',[AdminController::class,'delete_catagory']); 
