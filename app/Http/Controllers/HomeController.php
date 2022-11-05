@@ -10,6 +10,7 @@
     use App\Models\Order;
     use Session;
     use Stripe;
+    use App\Models\Comment;
 
 class HomeController extends Controller
 {
@@ -53,7 +54,10 @@ class HomeController extends Controller
         {
 
             $product=Product::paginate(10);
-            return view('home.userpage',compact('product'));
+
+            $comment=Comment::all();
+
+            return view('home.userpage',compact('product','comment'));
         }
     }
     public function product_details($id)
@@ -246,6 +250,26 @@ class HomeController extends Controller
 
             return redirect()->back();
         }
+
+    public function add_comment(Request $request)
+    {
+        if(Auth::id())
+        {
+            $comment=new comment;
+
+            $comment->name=Auth::user()->name;
+            $comment->user_id=Auth::user()->id;
+            $comment->comment=$request->comment;
+
+            $comment->save();
+
+            return redirect()->back();
+        }
+        else
+        {
+            return redirect('login');
+        }
+    }   
 
 }
  

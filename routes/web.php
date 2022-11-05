@@ -62,6 +62,7 @@
 
     route::get('/cancel_order/{id}',[HomeController::class,'cancel_order']);
 
+    route::POST('/add_comment',[HomeController::class,'add_comment']);
 
 
 
