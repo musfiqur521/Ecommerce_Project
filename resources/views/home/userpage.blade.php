@@ -21,9 +21,8 @@
       <!-- responsive style -->
       <link href="home/css/responsive.css" rel="stylesheet" />
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" 
-      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" 
-      crossorigin="anonymous" referrerpolicy="no-referrer">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
       </script>
    
    </head>
@@ -72,18 +71,19 @@
                <h1 style="font-size: 20px; padding-bottom: 20px;">All Comments
                </h1>
 
-               @foreach($comment as $comment)
+                @foreach($comment as $comment)
 
                <div>
 
-                  <b>Musfiqur</b>
-                  <p>this is my first comment</p>
+                  <b>{{$comment->name}}</b>
+                  <p>{{$comment->comment}}</p>
                   <a style="color: blue;" href="javascript::void(0);"
-                  onclick="reply(this)">Reply</a>
+                  onclick="reply(this)" data-commented=
+                  "{{$comment->id}}">Reply</a>
                
                </div>
 
-               @endforeach
+                @endforeach
 
              
 
@@ -93,6 +93,8 @@
                <br>
                <a href="" class="btn btn-primary">Reply</a>
             
+               <a href="" class="btn" onclick="reply_close(this)">Close</a>
+
               </div>
 
 
@@ -128,6 +130,14 @@
                $('.replyDiv').insertAfter($(caller));
 
                $('.replyDiv').show();
+
+            }
+
+            function reply_close(caller)
+            {
+              
+
+               $('.replyDiv').hide();
 
             }
          

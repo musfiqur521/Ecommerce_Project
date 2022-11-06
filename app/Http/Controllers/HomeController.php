@@ -55,7 +55,7 @@ class HomeController extends Controller
 
             $product=Product::paginate(10);
 
-            $comment=Comment::all();
+            $comment=comment::all();
 
             return view('home.userpage',compact('product','comment'));
         }
