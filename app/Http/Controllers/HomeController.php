@@ -10,13 +10,14 @@
     use App\Models\Order;
     use Session;
     use Stripe;
-    use App\Models\Comment;
+    // use App\Models\Comment;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $product=Product::paginate(10);
+        // $comment=comment::all();
         return view('home.userpage',compact('product'));
     }
 
@@ -55,9 +56,9 @@ class HomeController extends Controller
 
             $product=Product::paginate(10);
 
-            $comment=comment::all();
+            // $comment=comment::all();
 
-            return view('home.userpage',compact('product','comment'));
+            return view('home.userpage',compact('product'));
         }
     }
     public function product_details($id)
@@ -251,25 +252,32 @@ class HomeController extends Controller
             return redirect()->back();
         }
 
-    public function add_comment(Request $request)
+    // public function add_comment(Request $request)
+    // {
+    //     if(Auth::id())
+    //     {
+    //         $comment=new comment;
+
+    //         $comment->name=Auth::user()->name;
+    //         $comment->user_id=Auth::user()->id;
+    //         $comment->comment=$request->comment;
+
+    //         $comment->save();
+
+    //         return redirect()->back();
+    //     }
+    //     else
+    //     {
+    //         return redirect('login');
+    //     }
+    // }   
+    public function product_search(Request $request)
     {
-        if(Auth::id())
-        {
-            $comment=new comment;
+        $search_text=$request->search;
 
-            $comment->name=Auth::user()->name;
-            $comment->user_id=Auth::user()->id;
-            $comment->comment=$request->comment;
-
-            $comment->save();
-
-            return redirect()->back();
-        }
-        else
-        {
-            return redirect('login');
-        }
-    }   
+        $product=product::where('title','LIKE','%$search_text%')->orWhere('catagory','LIKE','$search_text')->paginate(10);
+        return view('home.userpage',compact('product'));
+    }
 
 }
  
