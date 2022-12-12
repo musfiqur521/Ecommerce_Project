@@ -66,6 +66,8 @@
 
     route::get('/product_search',[HomeController::class,'product_search']);
 
+    route::get('/products',[HomeController::class,'product']);
+
 
 
 

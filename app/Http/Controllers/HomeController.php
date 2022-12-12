@@ -279,5 +279,13 @@ class HomeController extends Controller
         return view('home.userpage',compact('product'));
     }
 
+    public function product()
+    {
+        $product=Product::paginate(10);
+        
+        return view('home.userpage',compact('product'));
+        return view('home.all_product');
+    }
+
 }
  
